@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putnbr_hex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emalungo <emalungo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 13:07:23 by emalungo          #+#    #+#             */
-/*   Updated: 2024/10/04 12:48:10 by emalungo         ###   ########.fr       */
+/*   Created: 2024/10/04 11:16:09 by emalungo          #+#    #+#             */
+/*   Updated: 2024/10/04 12:48:30 by emalungo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdio.h>
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdint.h>
+// Prints an unsigned long in lowercase hexadecimal.
 
-typedef struct s_printf
+int	ft_putnbr_hex(unsigned long long number, char c)
 {
-	va_list	args;
+	char	*str;
 	int		count;
-}				t_printf;
 
-int	ft_putchar(char c);
-int	ft_putnbr(int number);
-int	ft_putpointer(void *ptr);
-int	ft_putstr(const char *str);
-int	ft_putnbr_unsigned(unsigned int number);
-int	ft_putnbr_hex(unsigned long long number, char c);
-
-#endif
+	count = 0;
+	str = "0123456789abcdef";
+	if (c != 'x' && c != 'X')
+		return (0);
+	if (number > 15)
+		count += ft_putnbr_hex(number / 16, c);
+	if (c == 'X')
+		count += ft_putchar(str[number % 16] - 32);
+	else
+		count += ft_putchar(str[number % 16]);
+	return (count);
+}

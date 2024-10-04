@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emalungo <emalungo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 13:07:23 by emalungo          #+#    #+#             */
-/*   Updated: 2024/10/04 12:48:10 by emalungo         ###   ########.fr       */
+/*   Created: 2024/10/04 11:11:15 by emalungo          #+#    #+#             */
+/*   Updated: 2024/10/04 12:48:49 by emalungo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdio.h>
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdint.h>
+// Prints an integer and returns the count of digits.
 
-typedef struct s_printf
+int	ft_putnbr(int number)
 {
-	va_list	args;
+	char	*str;
 	int		count;
-}				t_printf;
 
-int	ft_putchar(char c);
-int	ft_putnbr(int number);
-int	ft_putpointer(void *ptr);
-int	ft_putstr(const char *str);
-int	ft_putnbr_unsigned(unsigned int number);
-int	ft_putnbr_hex(unsigned long long number, char c);
-
-#endif
+	count = 0;
+	str = "0123456789";
+	if (number == -2147483648)
+	{
+		count += ft_putstr("-2147483648");
+		return (count);
+	}
+	if (number < 0)
+	{
+		number = -number;
+		count += ft_putchar('-');
+	}
+	if (number > 9)
+		count += ft_putnbr(number / 10);
+	count += ft_putchar(str[number % 10]);
+	return (count);
+}

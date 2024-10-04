@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putnbr_unsigned.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emalungo <emalungo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 13:07:23 by emalungo          #+#    #+#             */
-/*   Updated: 2024/10/04 12:48:10 by emalungo         ###   ########.fr       */
+/*   Created: 2024/10/04 11:14:36 by emalungo          #+#    #+#             */
+/*   Updated: 2024/10/04 12:37:58 by emalungo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdio.h>
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdint.h>
+// Prs an unsigned integer and returns the count of digits.
 
-typedef struct s_printf
+int	ft_putnbr_unsigned(unsigned int number)
 {
-	va_list	args;
+	char	*str;
 	int		count;
-}				t_printf;
 
-int	ft_putchar(char c);
-int	ft_putnbr(int number);
-int	ft_putpointer(void *ptr);
-int	ft_putstr(const char *str);
-int	ft_putnbr_unsigned(unsigned int number);
-int	ft_putnbr_hex(unsigned long long number, char c);
-
-#endif
+	count = 0;
+	str = "0123456789";
+	if (number > 9)
+		count += ft_putnbr_unsigned(number / 10);
+	count += ft_putchar(str[number % 10]);
+	return (count);
+}
